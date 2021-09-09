@@ -23,7 +23,7 @@ def close_db(error):
     if hasattr(g, 'neo4j_db'):
         g.neo4j_db.close()
 
-#返回所有的实体类节点和他们之间的关系
+# Return all the nodes in the graph and their relations
 @app.route("/graph")
 def get_graph():
     db = get_db()
@@ -53,7 +53,7 @@ def get_graph():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#返回两个节点之间的最短路径（最多为5跳，大于5跳则显示无路径）
+# Return the shortest path between the given two nodes（Max step: 5）
 @app.route("/shortestPath", methods = ['POST'])
 def get_path():
     if not request.data:
@@ -90,7 +90,7 @@ def get_path():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#修改实体节点的属性
+# Edit the entity node attributes
 @app.route("/edit_node", methods = ['POST'])
 def edit_node():
     state = 'operation failed'
@@ -120,7 +120,7 @@ def edit_node():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#修改实体节点之间的关系的属性
+# Edit the relation attributes
 @app.route("/edit_link", methods = ['POST'])
 def edit_link():
     state = 'operation failed'
@@ -149,7 +149,7 @@ def edit_link():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#添加一个新的实体类节点
+# Create a new entity node
 @app.route("/add_node", methods = ['POST'])
 def add_node():
     if not request.data:
@@ -173,7 +173,7 @@ def add_node():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#添加一个新的关系
+# Create a new relation between two nodes
 @app.route("/add_link", methods = ['POST'])
 def add_link():
     state = 'operation failed'
@@ -199,7 +199,7 @@ def add_link():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#搜索一个实体节点并返回与它有关系的所有节点
+# Search an entity node with given name and return all related nodes and relations
 @app.route("/search", methods = ['POST'])
 def search():
     if not request.data:
@@ -240,7 +240,7 @@ def search():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#搜索任务编号并返回工作图谱
+# Return the work knowledge graph for robot by searching the mission id
 @app.route("/search_mission", methods = ['POST'])
 def search_mission():
     if not request.data:
@@ -282,7 +282,7 @@ def search_mission():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#将一个实体节点添加到某任务中，并和某个概念节点相连
+# Add an entity node to the mission work knowledge graph and connect to a concept node
 @app.route("/add_to_mission", methods = ['POST'])
 def add_to_mission():
     if not request.data:
@@ -309,7 +309,7 @@ def add_to_mission():
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     return response
 
-#将一个实体节点从某任务的工作图谱中删除
+# remove an entity node from a mission knowledge graph
 @app.route("/delete_from_mission", methods = ['POST'])
 def delete_from_mission():
     if not request.data:
